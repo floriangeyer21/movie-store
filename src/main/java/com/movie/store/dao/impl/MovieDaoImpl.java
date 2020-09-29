@@ -5,12 +5,10 @@ import com.movie.store.exceptions.DataProcessingException;
 import com.movie.store.lib.Dao;
 import com.movie.store.model.Movie;
 import com.movie.store.util.HibernateUtil;
+import java.util.List;
+import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.criteria.JpaCriteriaQuery;
-
-import javax.persistence.criteria.CriteriaQuery;
-import java.util.List;
 
 @Dao
 public class MovieDaoImpl implements MovieDao {
@@ -33,7 +31,7 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public List<Movie> getAll() {
-        try (Session session = HibernateUtil.getSessionFactory()) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaQuery criteriaQuery = session.getCriteriaBuilder()
                     .createQuery(Movie.class);
             criteriaQuery.from(Movie.class);

@@ -1,0 +1,66 @@
+2020-09-29 15:50:03 INFO  Version:44 - HHH000412: Hibernate ORM core version 6.0.0.Alpha6
+2020-09-29 15:50:03 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-29 15:50:03 WARN  pooling:73 - HHH10001002: Using built-in connection pool (not intended for production use)
+2020-09-29 15:50:03 INFO  pooling:134 - HHH10001005: Loaded JDBC driver class: com.mysql.cj.jdbc.Driver
+2020-09-29 15:50:03 INFO  pooling:157 - HHH10001012: Connecting with JDBC URL [jdbc:mysql://localhost:3306/movie_store?serverTimeZone=UTC]
+2020-09-29 15:50:03 INFO  pooling:166 - HHH10001001: Connection properties: {password=****, user=hibernate}
+2020-09-29 15:50:03 INFO  pooling:171 - HHH10001003: Autocommit mode: false
+2020-09-29 15:50:03 INFO  pooling:288 - HHH10001115: Connection pool size: 1 (min=1)
+2020-09-29 15:50:03 INFO  SQL dialect:66 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-09-29 15:50:04 DEBUG SQL:128 - 
+    
+    drop table if exists movies
+2020-09-29 15:50:04 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6ef60295] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-29 15:50:04 DEBUG SQL:128 - 
+    
+    create table movies (
+       movie_id bigint not null auto_increment,
+        description varchar(255),
+        title varchar(255),
+        primary key (movie_id)
+    ) engine=InnoDB
+2020-09-29 15:50:04 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2577a95d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-29 15:50:04 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-29 15:50:04 DEBUG SQL:128 - 
+    insert 
+    into
+        movies
+        (description, title) 
+    values
+        (?, ?)
+2020-09-29 15:50:04 TRACE BasicBinder:52 - binding parameter [1] as [VARCHAR] - [null]
+2020-09-29 15:50:04 TRACE BasicBinder:64 - binding parameter [2] as [VARCHAR] - [Rain Man]
+2020-09-29 15:50:04 INFO  StatisticalLoggingSessionEventListener:259 - Session Metrics {
+    372800 nanoseconds spent acquiring 1 JDBC connections;
+    218000 nanoseconds spent releasing 1 JDBC connections;
+    4587800 nanoseconds spent preparing 1 JDBC statements;
+    28017800 nanoseconds spent executing 1 JDBC statements;
+    0 nanoseconds spent executing 0 JDBC batches;
+    0 nanoseconds spent performing 0 L2C puts;
+    0 nanoseconds spent performing 0 L2C hits;
+    0 nanoseconds spent performing 0 L2C misses;
+    2836400 nanoseconds spent executing 1 flushes (flushing a total of 1 entities and 0 collections);
+    0 nanoseconds spent executing 0 partial-flushes (flushing a total of 0 entities and 0 collections)
+}
+2020-09-29 15:50:04 DEBUG SQL:128 - 
+    select
+        m1_0.movie_id,
+        m1_0.description,
+        m1_0.title 
+    from
+        movies as m1_0
+2020-09-29 15:50:04 TRACE BasicExtractor:60 - extracted value ([1] : [BIGINT]) - [1]
+2020-09-29 15:50:04 TRACE BasicExtractor:50 - extracted value ([2] : [VARCHAR]) - [null]
+2020-09-29 15:50:04 TRACE BasicExtractor:60 - extracted value ([3] : [VARCHAR]) - [Rain Man]
+2020-09-29 15:50:04 INFO  StatisticalLoggingSessionEventListener:259 - Session Metrics {
+    382100 nanoseconds spent acquiring 1 JDBC connections;
+    0 nanoseconds spent releasing 0 JDBC connections;
+    467300 nanoseconds spent preparing 1 JDBC statements;
+    570600 nanoseconds spent executing 1 JDBC statements;
+    0 nanoseconds spent executing 0 JDBC batches;
+    0 nanoseconds spent performing 0 L2C puts;
+    0 nanoseconds spent performing 0 L2C hits;
+    0 nanoseconds spent performing 0 L2C misses;
+    0 nanoseconds spent executing 0 flushes (flushing a total of 0 entities and 0 collections);
+    0 nanoseconds spent executing 0 partial-flushes (flushing a total of 0 entities and 0 collections)
+}
