@@ -1,15 +1,13 @@
 package com.movie.store.util;
 
 import com.movie.store.exceptions.DataProcessingException;
+import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+@NoArgsConstructor
 public class HibernateUtil {
     private static SessionFactory sessionFactory = initSessionFactory();
-
-    public HibernateUtil() {
-
-    }
 
     private static SessionFactory initSessionFactory() {
         try {
