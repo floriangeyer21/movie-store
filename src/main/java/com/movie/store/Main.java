@@ -8,6 +8,7 @@ import com.movie.store.service.CinemaHallService;
 import com.movie.store.service.MovieService;
 import com.movie.store.service.MovieSessionService;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
 
@@ -25,7 +26,7 @@ public class Main {
         MovieSession movieSession = new MovieSession();
         CinemaHall cinemaHall = new CinemaHall();
         movieSession.setMovie(movie);
-        LocalDate dateTime = LocalDate.of(2020, 12, 12);
+        LocalDateTime dateTime = LocalDateTime.of(2020, 12, 12, 15, 30);
         movieSession.setShowTime(dateTime);
         movieSession.setCinemaHall(cinemaHall);
         cinemaHall.setCapacity(100);
@@ -38,9 +39,10 @@ public class Main {
         cinemaHallService.add(cinemaHall);
         log.info("Create new entity: " + cinemaHall);
         log.info("Add to db entity: " + movieSession);
+        LocalDate date = LocalDate.of(2020, 12, 12);
         log.info("Result of findAvailableSessions method with movie id" + movie.getId()
                 + " and date " + dateTime
-                + ": " + movieSessionService.findAvailableSessions(movie.getId(), dateTime));
+                + ": " + movieSessionService.findAvailableSessions(movie.getId(), date));
         log.info("Result of getAll() methods in movieService: "
                 + movieService.getAll());
         log.info("Result of getAll() methods in cinemaHallService: "

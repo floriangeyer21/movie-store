@@ -23,7 +23,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             Query query = session.createQuery(
                     "from MovieSession a join fetch Movie b "
                             + "where b.id = :id "
-                            + "and a.showTime = :date ");
+                            + "and a.showTime in(:date)");
             query.setParameter("id", movieId);
             query.setParameter("date", date);
             return query.getResultList();

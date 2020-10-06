@@ -1,6 +1,6 @@
 package com.movie.store.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,5 +37,5 @@ public class MovieSession {
     private CinemaHall cinemaHall;
 
     @Column(name = "show_time")
-    private LocalDate showTime;
+    private LocalDateTime showTime;
 }
