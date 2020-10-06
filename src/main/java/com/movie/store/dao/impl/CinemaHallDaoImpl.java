@@ -42,7 +42,7 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             criteriaQuery.from(CinemaHall.class);
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
-            throw new DataProcessingException("Error retrieving all movie halls. ", e);
+            throw new DataProcessingException("Error retrieving all cinema halls. ", e);
         }
     }
 }

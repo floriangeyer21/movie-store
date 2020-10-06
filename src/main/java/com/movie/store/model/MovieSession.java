@@ -1,7 +1,6 @@
 package com.movie.store.model;
 
 import java.time.LocalDateTime;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +20,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"movie", "cinemaHall", "showTime"})
-@ToString(of = {"movie", "cinemaHall", "showTime"})
+@ToString
 @Table(name = "movie_sessions")
 public class MovieSession {
     @Id
@@ -29,10 +28,9 @@ public class MovieSession {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id")
     private Movie movie;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "cin_hall_id")
     private CinemaHall cinemaHall;
 

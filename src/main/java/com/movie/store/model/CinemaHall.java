@@ -19,7 +19,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"capacity", "movieSessions"})
-@ToString(of = {"capacity"})
+@ToString(of = {"id", "capacity"})
 @Table(name = "cinema_halls")
 public class CinemaHall {
     @Id

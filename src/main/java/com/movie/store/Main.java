@@ -31,12 +31,12 @@ public class Main {
         movieSession.setCinemaHall(cinemaHall);
         cinemaHall.setCapacity(100);
         cinemaHall.setMovieSessions(List.of(movieSession));
-        MovieSessionService movieSessionService =
-                (MovieSessionService) injector.getInstance(MovieSessionService.class);
         CinemaHallService cinemaHallService
                 = (CinemaHallService) injector.getInstance(CinemaHallService.class);
-        movieSessionService.add(movieSession);
         cinemaHallService.add(cinemaHall);
+        MovieSessionService movieSessionService =
+                (MovieSessionService) injector.getInstance(MovieSessionService.class);
+        movieSessionService.add(movieSession);
         log.info("Create new entity: " + cinemaHall);
         log.info("Add to db entity: " + movieSession);
         LocalDate date = LocalDate.of(2020, 12, 12);

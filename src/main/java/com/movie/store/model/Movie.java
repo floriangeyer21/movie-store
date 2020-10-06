@@ -17,7 +17,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"title", "description"})
-@ToString(of = {"title", "description"})
+@ToString
 @Table(name = "movies")
 public class Movie {
     @Id
