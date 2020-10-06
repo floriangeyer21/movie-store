@@ -6,6 +6,7 @@ import com.movie.store.lib.Dao;
 import com.movie.store.model.MovieSession;
 import com.movie.store.util.HibernateUtil;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import javax.persistence.Query;
 import org.hibernate.Session;
@@ -21,11 +22,12 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery(
-                    "from MovieSession a, Movie b "
-                            + "where b.id = :id "
-                            + "and date(a.showTime) = :date");
+                    "from MovieSession  "
+                            + "where movie_id = :id "
+                            + "and show_time between :start and :end");
             query.setParameter("id", movieId);
-            query.setParameter("date", date);
+            query.setParameter("start", date.atTime(LocalTime.MIN));
+            query.setParameter("end", date.atTime(LocalTime.MAX));
             return query.getResultList();
         } catch (Exception e) {
             if (transaction != null) {
