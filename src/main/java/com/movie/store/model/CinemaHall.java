@@ -1,9 +1,18 @@
 package com.movie.store.model;
 
-import lombok.*;
-
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -11,15 +20,14 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"capacity", "movieSession"})
 @ToString(of = {"capacity", "movieSession"})
-@Table(name = "cinema_hall")
+@Table(name = "cinema_halls")
 public class CinemaHall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cinema_hall_id")
+    @Column(name = "cin_hall_id")
     private Long id;
-
-    @OneToMany(mappedBy = "id")
-    List<MovieSession> movieSessions;
-
     private int capacity;
+
+    @OneToMany(mappedBy = "cinemaHall")
+    private List<MovieSession> movieSessions;
 }
