@@ -4,9 +4,11 @@ import com.movie.store.lib.Injector;
 import com.movie.store.model.CinemaHall;
 import com.movie.store.model.Movie;
 import com.movie.store.model.MovieSession;
+import com.movie.store.security.AuthenticationService;
 import com.movie.store.service.CinemaHallService;
 import com.movie.store.service.MovieService;
 import com.movie.store.service.MovieSessionService;
+import com.movie.store.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,5 +49,11 @@ public class Main {
                 + movieService.getAll());
         log.info("Result of getAll() methods in cinemaHallService: "
                 + cinemaHallService.getAll());
+        UserService userService =
+                (UserService) injector.getInstance(UserService.class);
+        AuthenticationService authenticationService =
+                (AuthenticationService) injector.getInstance(AuthenticationService.class);
+        log.info("Register new user " + authenticationService.register("best@email.ever", "1234"));
+        log.info("Find user by email " + authenticationService.login("best@email.ever", "1234"));
     }
 }

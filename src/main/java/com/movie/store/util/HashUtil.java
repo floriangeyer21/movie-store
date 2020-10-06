@@ -1,7 +1,6 @@
 package com.movie.store.util;
 
 import com.movie.store.exceptions.NoAppropriateHashingAlgorithmException;
-import lombok.extern.log4j.Log4j;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
