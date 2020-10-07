@@ -7,10 +7,12 @@ import com.movie.store.model.User;
 import com.movie.store.util.HibernateUtil;
 import java.util.Optional;
 import javax.persistence.Query;
+import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
+@Log4j
 public class UserDaoImpl implements UserDao {
     @Override
     public User add(User user) {
@@ -21,6 +23,7 @@ public class UserDaoImpl implements UserDao {
             transaction = session.beginTransaction();
             session.persist(user);
             transaction.commit();
+            log.info(user.getClass());
             return user;
         } catch (Exception e) {
             if (transaction != null) {
