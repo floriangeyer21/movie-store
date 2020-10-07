@@ -6,10 +6,10 @@ import com.movie.store.lib.Dao;
 import com.movie.store.model.User;
 import com.movie.store.util.HibernateUtil;
 import java.util.Optional;
-import javax.persistence.Query;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 @Dao
 @Log4j
@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't insert user entity. ", e);
+            throw new DataProcessingException("Can't insert user entity. " + user, e);
         } finally {
             if (session != null) {
                 session.close();
@@ -40,10 +40,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> findByEmail(String email) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery(
-                    "from User where email = :email ");
+            Query<User> query = session.createQuery(
+                    "from User where email = :email ", User.class);
             query.setParameter("email", email);
-            User user = (User) query.getSingleResult();
+            User user = query.uniqueResult();
             return Optional.of(user);
         }
     }

@@ -1,5 +1,6 @@
 package com.movie.store;
 
+import com.movie.store.exceptions.AuthenticationException;
 import com.movie.store.lib.Injector;
 import com.movie.store.model.CinemaHall;
 import com.movie.store.model.Movie;
@@ -19,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 public class Main {
     private static Injector injector = Injector.getInstance("com.movie.store");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AuthenticationException {
         MovieService movieService =
                 (MovieService) injector.getInstance(MovieService.class);
         Movie movie = new Movie();
