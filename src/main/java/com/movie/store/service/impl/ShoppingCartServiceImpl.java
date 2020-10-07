@@ -1,28 +1,61 @@
 package com.movie.store.service.impl;
 
+import com.movie.store.dao.ShoppingCartDao;
+import com.movie.store.dao.TicketDao;
+import com.movie.store.lib.Inject;
+import com.movie.store.lib.Service;
 import com.movie.store.model.MovieSession;
 import com.movie.store.model.ShoppingCart;
+import com.movie.store.model.Ticket;
 import com.movie.store.model.User;
 import com.movie.store.service.ShoppingCartService;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
+@Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-    @Override
-    public void addSession(MovieSession movieSession, User user) {
+    @Inject
+    private ShoppingCartDao shoppingCartDao;
+    @Inject
+    private TicketDao ticketDao;
 
+    @Override
+    public ShoppingCart addSession(MovieSession movieSession, User user) {
+        log.info("Calling method addSession() in ShoppingCartService");
+        if (shoppingCartDao.getByUser(user).isPresent()) {
+            Ticket ticket = new Ticket();
+            ticket.setUser(user);
+            ticket.setMovieSession(movieSession);
+            ticketDao.add(ticket);
+            ShoppingCart shoppingCart = shoppingCartDao.getByUser(user).get();
+            shoppingCart.getTickets().add(ticket);
+            shoppingCartDao.update(shoppingCart);
+            return shoppingCart;
+        }
+        return new ShoppingCart();
     }
 
     @Override
     public ShoppingCart getByUser(User user) {
-        return null;
+        log.info("Calling method getByUser() in ShoppingCartService");
+        if (shoppingCartDao.getByUser(user).isPresent()) {
+            return shoppingCartDao.getByUser(user).get();
+        }
+        return new ShoppingCart();
     }
 
     @Override
-    public void registerNewShoppingCart(User user) {
-
+    public ShoppingCart registerNewShoppingCart(User user) {
+        log.info("Calling method registerNewShoppingCart() in ShoppingCartService");
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUser(user);
+        return shoppingCartDao.add(shoppingCart);
     }
 
     @Override
-    public void clear(ShoppingCart shoppingCart) {
-
+    public ShoppingCart clear(ShoppingCart shoppingCart) {
+        log.info("Calling method clear() in ShoppingCartService");
+        shoppingCart.getTickets().clear();
+        return shoppingCartDao.update(shoppingCart);
     }
 }

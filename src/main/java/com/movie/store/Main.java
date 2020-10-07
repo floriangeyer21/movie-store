@@ -5,14 +5,16 @@ import com.movie.store.lib.Injector;
 import com.movie.store.model.CinemaHall;
 import com.movie.store.model.Movie;
 import com.movie.store.model.MovieSession;
+import com.movie.store.model.ShoppingCart;
+import com.movie.store.model.User;
 import com.movie.store.security.AuthenticationService;
 import com.movie.store.service.CinemaHallService;
 import com.movie.store.service.MovieService;
 import com.movie.store.service.MovieSessionService;
+import com.movie.store.service.ShoppingCartService;
 import com.movie.store.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
 
@@ -30,7 +32,7 @@ public class Main {
         MovieSession movieSession = new MovieSession();
         CinemaHall cinemaHall = new CinemaHall();
         movieSession.setMovie(movie);
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2020, 12, 12), LocalTime.MAX);
+        LocalDateTime dateTime = LocalDateTime.of(2020, 12, 12, 15, 30);
         movieSession.setShowTime(dateTime);
         movieSession.setCinemaHall(cinemaHall);
         cinemaHall.setCapacity(100);
@@ -57,5 +59,14 @@ public class Main {
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
         log.info("Register new user " + authenticationService.register("best@email.ever", "1234"));
         log.info("Find user by email " + authenticationService.login("best@email.ever", "1234"));
+
+        User user = userService.findByEmail("best@email.ever").get();
+        ShoppingCartService shoppingCartService
+                = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+        shoppingCartService.registerNewShoppingCart(user);
+        shoppingCartService.addSession(movieSession, user);
+        log.info("test getByUser() " + shoppingCartService.getByUser(user));
+        ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
+        log.info("test clear method " + shoppingCartService.clear(shoppingCart));
     }
 }
