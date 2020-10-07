@@ -27,6 +27,8 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             query.setParameter("start", date.atTime(LocalTime.MIN));
             query.setParameter("end", date.atTime(LocalTime.MAX));
             return query.getResultList();
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't find movie session by movie id " + movieId, e);
         }
     }
 
@@ -44,7 +46,8 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't insert movie session entity. ", e);
+            throw new DataProcessingException("Can't insert movie session entity. "
+                    + movieSession, e);
         } finally {
             if (session != null) {
                 session.close();
