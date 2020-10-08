@@ -6,7 +6,6 @@ import com.movie.store.lib.Dao;
 import com.movie.store.model.ShoppingCart;
 import com.movie.store.model.User;
 import com.movie.store.util.HibernateUtil;
-import java.util.Optional;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
