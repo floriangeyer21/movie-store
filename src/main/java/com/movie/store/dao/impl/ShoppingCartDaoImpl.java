@@ -8,7 +8,6 @@ import com.movie.store.model.User;
 import com.movie.store.util.HibernateUtil;
 import java.util.Optional;
 import lombok.extern.log4j.Log4j;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -45,11 +44,10 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
         log.info("Calling method getByUser() in ShoppingCartDao");
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<ShoppingCart> query = session.createQuery(
-                    "from ShoppingCart where user.id = :id ");
+                    "from ShoppingCart "
+                            + "where user.id = :id ", ShoppingCart.class);
             query.setParameter("id", user.getId());
             ShoppingCart shoppingCart = query.uniqueResult();
-            log.info("class of shoppingCart " + shoppingCart.getClass());
-            Hibernate.unproxy(shoppingCart);
             return Optional.of(shoppingCart);
         }
     }
