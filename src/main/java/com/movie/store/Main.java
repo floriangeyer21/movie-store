@@ -63,7 +63,6 @@ public class Main {
         User user = userService.findByEmail("best@email.ever").get();
         ShoppingCartService shoppingCartService
                 = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
-        shoppingCartService.registerNewShoppingCart(user);
         shoppingCartService.addSession(movieSession, user);
         log.info("test getByUser() " + shoppingCartService.getByUser(user));
         ShoppingCart shoppingCart = shoppingCartService.getByUser(user);

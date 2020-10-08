@@ -4,6 +4,7 @@ import com.movie.store.exceptions.AuthenticationException;
 import com.movie.store.lib.Inject;
 import com.movie.store.lib.Service;
 import com.movie.store.model.User;
+import com.movie.store.service.ShoppingCartService;
 import com.movie.store.service.UserService;
 import com.movie.store.util.HashUtil;
 import java.util.Optional;
@@ -12,6 +13,8 @@ import java.util.Optional;
 public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
     private UserService userService;
+    @Inject
+    private ShoppingCartService shoppingCartService;
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
@@ -27,6 +30,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public User register(String email, String password) {
         User user = new User(email, password);
         user = userService.add(user);
+        shoppingCartService.registerNewShoppingCart(user);
         return user;
     }
 }
