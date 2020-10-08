@@ -22,26 +22,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCart addSession(MovieSession movieSession, User user) {
         log.info("Calling method addSession() in ShoppingCartService");
-        if (shoppingCartDao.getByUser(user).isPresent()) {
-            Ticket ticket = new Ticket();
-            ticket.setUser(user);
-            ticket.setMovieSession(movieSession);
-            ticketDao.add(ticket);
-            ShoppingCart shoppingCart = shoppingCartDao.getByUser(user).get();
-            shoppingCart.getTickets().add(ticket);
-            shoppingCartDao.update(shoppingCart);
-            return shoppingCart;
-        }
-        return new ShoppingCart();
+        Ticket ticket = new Ticket();
+        ticket.setUser(user);
+        ticket.setMovieSession(movieSession);
+        ticketDao.add(ticket);
+        ShoppingCart shoppingCart = shoppingCartDao.getByUser(user);
+        shoppingCart.getTickets().add(ticket);
+        shoppingCartDao.update(shoppingCart);
+        return shoppingCart;
     }
 
     @Override
     public ShoppingCart getByUser(User user) {
         log.info("Calling method getByUser() in ShoppingCartService");
-        if (shoppingCartDao.getByUser(user).isPresent()) {
-            return shoppingCartDao.getByUser(user).get();
-        }
-        return new ShoppingCart();
+            return shoppingCartDao.getByUser(user);
     }
 
     @Override

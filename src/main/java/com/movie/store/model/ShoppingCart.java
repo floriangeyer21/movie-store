@@ -1,26 +1,20 @@
 package com.movie.store.model;
 
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
 import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "shopping_carts")
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "shippingCarts_tickets",
+    @JoinTable(name = "shoppingCarts_tickets",
             joinColumns =
                     { @JoinColumn(name = "shopping_Cart_id", referencedColumnName = "id") },
             inverseJoinColumns =

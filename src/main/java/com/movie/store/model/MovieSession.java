@@ -21,10 +21,10 @@ public class MovieSession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Movie movie;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private CinemaHall cinemaHall;
 
     @Column(name = "show_time")

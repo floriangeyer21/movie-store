@@ -40,7 +40,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     }
 
     @Override
-    public Optional<ShoppingCart> getByUser(User user) {
+    public ShoppingCart getByUser(User user) {
         log.info("Calling method getByUser() in ShoppingCartDao");
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<ShoppingCart> query = session.createQuery(
@@ -50,7 +50,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                             + "where s.user.id = :id ", ShoppingCart.class);
             query.setParameter("id", user.getId());
             ShoppingCart shoppingCart = query.uniqueResult();
-            return Optional.of(shoppingCart);
+            return shoppingCart;
         }
     }
 

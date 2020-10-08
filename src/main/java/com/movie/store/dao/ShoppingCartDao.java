@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface ShoppingCartDao {
     ShoppingCart add(ShoppingCart shoppingCart);
 
-    Optional<ShoppingCart> getByUser(User user);
+    ShoppingCart getByUser(User user);
 
     ShoppingCart update(ShoppingCart shoppingCart);
 }
