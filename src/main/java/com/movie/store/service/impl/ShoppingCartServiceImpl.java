@@ -50,6 +50,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCart clear(ShoppingCart shoppingCart) {
         log.info("Calling method clear() in ShoppingCartService");
         shoppingCart.getTickets().clear();
-        return shoppingCartDao.update(shoppingCart);
+        shoppingCartDao.update(shoppingCart);
+        return shoppingCart;
     }
 }
