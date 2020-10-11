@@ -69,11 +69,9 @@ public class Main {
         ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         log.info(orderService.completeOrder(shoppingCart.getTickets(), user));
-        log.info("test clear method " + shoppingCartService.clear(shoppingCart));
         log.info(orderService.getOrderHistory(user));
         log.info(shoppingCartService.getByUser(user));
         log.info("test clear method " + shoppingCartService.clear(shoppingCart));
-        log.info("test clear method " + shoppingCartService.clear(shoppingCart));
-        log.info("test clear method " + shoppingCartService.clear(shoppingCart));
+        log.info(orderService.getOrderHistory(user));
     }
 }
