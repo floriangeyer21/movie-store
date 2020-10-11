@@ -5,11 +5,11 @@
     <session-factory>
         <property name="hibernate.generate_statistics">true</property>
         <property name="hibernate.format_sql">true</property>
-        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/movie_store?serverTimeZone=UTC</property>
-        <property name="connection.username">hibernate</property>
-        <property name="connection.password">hibernate</property>
-        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/movie_store?serverTimeZone=UTC</property>
+        <property name="connection.username">test_user</property>
+        <property name="connection.password">12345</property>
+        <property name="dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
         <property name="hbm2ddl.auto">create-drop</property>
 
         <mapping class="com.movie.store.model.Movie" />
@@ -18,5 +18,6 @@
         <mapping class="com.movie.store.model.User" />
         <mapping class="com.movie.store.model.ShoppingCart" />
         <mapping class="com.movie.store.model.Ticket" />
+        <mapping class="com.movie.store.model.Order" />
     </session-factory>
 </hibernate-configuration>

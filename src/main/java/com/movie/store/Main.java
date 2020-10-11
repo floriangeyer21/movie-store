@@ -11,6 +11,7 @@ import com.movie.store.security.AuthenticationService;
 import com.movie.store.service.CinemaHallService;
 import com.movie.store.service.MovieService;
 import com.movie.store.service.MovieSessionService;
+import com.movie.store.service.OrderService;
 import com.movie.store.service.ShoppingCartService;
 import com.movie.store.service.UserService;
 import java.time.LocalDate;
@@ -66,6 +67,13 @@ public class Main {
         shoppingCartService.addSession(movieSession, user);
         log.info("test getByUser() " + shoppingCartService.getByUser(user));
         ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
+        OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
+        log.info(orderService.completeOrder(shoppingCart.getTickets(), user));
+        log.info("test clear method " + shoppingCartService.clear(shoppingCart));
+        log.info(orderService.getOrderHistory(user));
+        log.info(shoppingCartService.getByUser(user));
+        log.info("test clear method " + shoppingCartService.clear(shoppingCart));
+        log.info("test clear method " + shoppingCartService.clear(shoppingCart));
         log.info("test clear method " + shoppingCartService.clear(shoppingCart));
     }
 }

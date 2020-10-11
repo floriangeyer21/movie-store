@@ -9,6 +9,7 @@ import com.movie.store.model.ShoppingCart;
 import com.movie.store.model.Ticket;
 import com.movie.store.model.User;
 import com.movie.store.service.ShoppingCartService;
+import java.util.ArrayList;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -49,7 +50,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCart clear(ShoppingCart shoppingCart) {
         log.info("Calling method clear() in ShoppingCartService");
-        shoppingCart.getTickets().clear();
+        shoppingCart.setTickets(new ArrayList<>());
         shoppingCartDao.update(shoppingCart);
         return shoppingCart;
     }
