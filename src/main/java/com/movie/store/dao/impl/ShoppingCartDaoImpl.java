@@ -7,6 +7,7 @@ import com.movie.store.model.ShoppingCart;
 import com.movie.store.model.User;
 import com.movie.store.util.HibernateUtil;
 import lombok.extern.log4j.Log4j;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
