@@ -3,10 +3,10 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-<!--        <property name="hibernate.generate_statistics">true</property>-->
+        <property name="hibernate.generate_statistics">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/movie_store?serverTimeZone=UTC</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/movie_store</property>
         <property name="connection.username">test_user</property>
         <property name="connection.password">12345</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>

@@ -50,9 +50,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCart clear(ShoppingCart shoppingCart) {
         log.info("Calling method clear() in ShoppingCartService");
-        //  shoppingCart.getTickets().clear();
+         shoppingCart.getTickets().clear();
         //  Case with deleting tickets from orders_tickets and shopping_-crts_tickets
-        shoppingCart.setTickets(new ArrayList<>());
+       // shoppingCart.setTickets(new ArrayList<>());
         shoppingCartDao.update(shoppingCart);
         return shoppingCart;
     }

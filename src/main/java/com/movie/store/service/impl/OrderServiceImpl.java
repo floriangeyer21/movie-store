@@ -20,12 +20,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order completeOrder(List<Ticket> tickets, User user) {
+        shoppingCartService.clear(shoppingCartService.getByUser(user));
         Order order = new Order();
         order.setDateOfCreation(LocalDateTime.now());
         order.setTickets(tickets);
         order.setUser(user);
         order = orderDao.add(order);
-        shoppingCartService.clear(shoppingCartService.getByUser(user));
         return order;
     }
 
