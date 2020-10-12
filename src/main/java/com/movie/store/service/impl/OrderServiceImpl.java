@@ -1,7 +1,6 @@
 package com.movie.store.service.impl;
 
 import com.movie.store.dao.OrderDao;
-import com.movie.store.dao.ShoppingCartDao;
 import com.movie.store.lib.Inject;
 import com.movie.store.lib.Service;
 import com.movie.store.model.Order;
@@ -18,8 +17,6 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
     @Inject
     private ShoppingCartService shoppingCartService;
-    @Inject
-    private ShoppingCartDao shoppingCartDao;
 
     @Override
     public Order completeOrder(List<Ticket> tickets, User user) {
@@ -27,8 +24,9 @@ public class OrderServiceImpl implements OrderService {
         order.setDateOfCreation(LocalDateTime.now());
         order.setTickets(tickets);
         order.setUser(user);
-        shoppingCartService.clear(shoppingCartDao.getByUser(user));
-        return orderDao.add(order);
+        order = orderDao.add(order);
+        shoppingCartService.clear(shoppingCartService.getByUser(user));
+        return order;
     }
 
     @Override
