@@ -20,7 +20,7 @@ public class TicketDaoImpl implements TicketDao {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.persist(ticket);
+            session.save(ticket);
             transaction.commit();
             return ticket;
         } catch (Exception e) {

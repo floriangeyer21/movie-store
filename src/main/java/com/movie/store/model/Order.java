@@ -1,6 +1,7 @@
 package com.movie.store.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,9 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
+@EqualsAndHashCode
 @Table(name = "orders")
 public class Order {
     @Id
@@ -30,7 +33,7 @@ public class Order {
                             referencedColumnName = "order_id") },
             inverseJoinColumns =
                     { @JoinColumn(name = "ticket_id", referencedColumnName = "id") })
-    private List<Ticket> tickets;
+    private List<Ticket> tickets = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

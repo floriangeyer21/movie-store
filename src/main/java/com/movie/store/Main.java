@@ -5,6 +5,7 @@ import com.movie.store.lib.Injector;
 import com.movie.store.model.CinemaHall;
 import com.movie.store.model.Movie;
 import com.movie.store.model.MovieSession;
+import com.movie.store.model.Order;
 import com.movie.store.model.ShoppingCart;
 import com.movie.store.model.User;
 import com.movie.store.security.AuthenticationService;
@@ -36,14 +37,20 @@ public class Main {
         LocalDateTime dateTime = LocalDateTime.of(2020, 12, 12, 15, 30);
         movieSession.setShowTime(dateTime);
         movieSession.setCinemaHall(cinemaHall);
+        MovieSession movieSession1 = new MovieSession();
+        movieSession1.setMovie(movie);
+        LocalDateTime dateTime1 = LocalDateTime.of(2020, 12, 12, 15, 30);
+        movieSession1.setShowTime(dateTime1);
+        movieSession1.setCinemaHall(cinemaHall);
         cinemaHall.setCapacity(100);
-        cinemaHall.setMovieSessions(List.of(movieSession));
+        cinemaHall.setMovieSessions(List.of(movieSession, movieSession1));
         CinemaHallService cinemaHallService
                 = (CinemaHallService) injector.getInstance(CinemaHallService.class);
         cinemaHallService.add(cinemaHall);
         MovieSessionService movieSessionService =
                 (MovieSessionService) injector.getInstance(MovieSessionService.class);
         movieSessionService.add(movieSession);
+        movieSessionService.add(movieSession1);
         log.info("Create new entity: " + cinemaHall);
         log.info("Add to db entity: " + movieSession);
         LocalDate date = LocalDate.of(2020, 12, 13);
@@ -65,12 +72,13 @@ public class Main {
         ShoppingCartService shoppingCartService
                 = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
         shoppingCartService.addSession(movieSession, user);
+        shoppingCartService.addSession(movieSession1, user);
         log.info("test getByUser() " + shoppingCartService.getByUser(user));
         ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
-        log.info(orderService.completeOrder(shoppingCart.getTickets(), user));
-        log.info(orderService.getOrderHistory(user));
-        log.info(shoppingCartService.getByUser(user));
+        Order order = orderService.completeOrder(shoppingCart.getTickets(), user);
+        orderService.getOrderHistory(user).forEach(System.out::println);
+        ShoppingCart shoppingCart1 = shoppingCartService.getByUser(user);
         log.info("test clear method " + shoppingCartService.clear(shoppingCart));
         log.info(orderService.getOrderHistory(user));
     }

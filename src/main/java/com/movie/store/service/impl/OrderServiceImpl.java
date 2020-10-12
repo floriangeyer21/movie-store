@@ -10,6 +10,7 @@ import com.movie.store.service.OrderService;
 import com.movie.store.service.ShoppingCartService;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -19,11 +20,11 @@ public class OrderServiceImpl implements OrderService {
     private ShoppingCartService shoppingCartService;
 
     @Override
-    public Order completeOrder(List<Ticket> tickets, User user) {
+    public Order completeOrder(Set<Ticket> tickets, User user) {
         shoppingCartService.clear(shoppingCartService.getByUser(user));
         Order order = new Order();
         order.setDateOfCreation(LocalDateTime.now());
-        order.setTickets(tickets);
+        order.getTickets().addAll(tickets);
         order.setUser(user);
         order = orderDao.add(order);
         return order;
