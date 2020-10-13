@@ -5,17 +5,18 @@ import com.movie.store.lib.Injector;
 import com.movie.store.model.CinemaHall;
 import com.movie.store.model.Movie;
 import com.movie.store.model.MovieSession;
+import com.movie.store.model.Order;
 import com.movie.store.model.ShoppingCart;
 import com.movie.store.model.User;
 import com.movie.store.security.AuthenticationService;
 import com.movie.store.service.CinemaHallService;
 import com.movie.store.service.MovieService;
 import com.movie.store.service.MovieSessionService;
+import com.movie.store.service.OrderService;
 import com.movie.store.service.ShoppingCartService;
 import com.movie.store.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -35,17 +36,22 @@ public class Main {
         LocalDateTime dateTime = LocalDateTime.of(2020, 12, 12, 15, 30);
         movieSession.setShowTime(dateTime);
         movieSession.setCinemaHall(cinemaHall);
+        MovieSession movieSession1 = new MovieSession();
+        movieSession1.setMovie(movie);
+        LocalDateTime dateTime1 = LocalDateTime.of(2020, 12, 12, 15, 30);
+        movieSession1.setShowTime(dateTime1);
+        movieSession1.setCinemaHall(cinemaHall);
         cinemaHall.setCapacity(100);
-        cinemaHall.setMovieSessions(List.of(movieSession));
         CinemaHallService cinemaHallService
                 = (CinemaHallService) injector.getInstance(CinemaHallService.class);
         cinemaHallService.add(cinemaHall);
         MovieSessionService movieSessionService =
                 (MovieSessionService) injector.getInstance(MovieSessionService.class);
         movieSessionService.add(movieSession);
+        movieSessionService.add(movieSession1);
         log.info("Create new entity: " + cinemaHall);
         log.info("Add to db entity: " + movieSession);
-        LocalDate date = LocalDate.of(2020, 12, 13);
+        LocalDate date = LocalDate.of(2020, 12, 12);
         log.info("Result of findAvailableSessions method with movie id" + movie.getId()
                 + " and date " + dateTime
                 + ": " + movieSessionService.findAvailableSessions(movie.getId(), date));
@@ -64,8 +70,14 @@ public class Main {
         ShoppingCartService shoppingCartService
                 = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
         shoppingCartService.addSession(movieSession, user);
-        log.info("test getByUser() " + shoppingCartService.getByUser(user));
+        shoppingCartService.addSession(movieSession1, user);
         ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
+        log.info("test getByUser() " + shoppingCart);
+        OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
+        Order order = orderService.completeOrder(shoppingCart.getTickets(), user);
+        orderService.getOrderHistory(user).forEach(System.out::println);
+        ShoppingCart shoppingCart1 = shoppingCartService.getByUser(user);
         log.info("test clear method " + shoppingCartService.clear(shoppingCart));
+        log.info(orderService.getOrderHistory(user));
     }
 }

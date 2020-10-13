@@ -1,6 +1,7 @@
 package com.movie.store.model;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,10 +23,10 @@ public class ShoppingCart {
     @JoinTable(name = "shopping_carts_tickets",
             joinColumns =
                     { @JoinColumn(name = "shopping_cart_id",
-                            referencedColumnName = "shopping_Cart_id") },
+                            referencedColumnName = "shopping_cart_id") },
             inverseJoinColumns =
                     { @JoinColumn(name = "ticket_id", referencedColumnName = "id") })
-    private List<Ticket> tickets;
+    private Set<Ticket> tickets = new HashSet<>();
 
     @OneToOne
     @MapsId

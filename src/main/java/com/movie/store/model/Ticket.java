@@ -23,6 +23,4 @@ public class Ticket {
 
     @ManyToOne
     private User user;
-
-    private boolean deleted;
 }
