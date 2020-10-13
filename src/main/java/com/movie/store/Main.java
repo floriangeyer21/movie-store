@@ -17,7 +17,6 @@ import com.movie.store.service.ShoppingCartService;
 import com.movie.store.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -43,7 +42,6 @@ public class Main {
         movieSession1.setShowTime(dateTime1);
         movieSession1.setCinemaHall(cinemaHall);
         cinemaHall.setCapacity(100);
-        cinemaHall.setMovieSessions(List.of(movieSession, movieSession1));
         CinemaHallService cinemaHallService
                 = (CinemaHallService) injector.getInstance(CinemaHallService.class);
         cinemaHallService.add(cinemaHall);
@@ -53,7 +51,7 @@ public class Main {
         movieSessionService.add(movieSession1);
         log.info("Create new entity: " + cinemaHall);
         log.info("Add to db entity: " + movieSession);
-        LocalDate date = LocalDate.of(2020, 12, 13);
+        LocalDate date = LocalDate.of(2020, 12, 12);
         log.info("Result of findAvailableSessions method with movie id" + movie.getId()
                 + " and date " + dateTime
                 + ": " + movieSessionService.findAvailableSessions(movie.getId(), date));
@@ -73,8 +71,8 @@ public class Main {
                 = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
         shoppingCartService.addSession(movieSession, user);
         shoppingCartService.addSession(movieSession1, user);
-        log.info("test getByUser() " + shoppingCartService.getByUser(user));
         ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
+        log.info("test getByUser() " + shoppingCart);
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         Order order = orderService.completeOrder(shoppingCart.getTickets(), user);
         orderService.getOrderHistory(user).forEach(System.out::println);

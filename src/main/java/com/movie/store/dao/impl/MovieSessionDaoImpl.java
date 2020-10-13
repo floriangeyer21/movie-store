@@ -8,9 +8,9 @@ import com.movie.store.util.HibernateUtil;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 @Dao
 public class MovieSessionDaoImpl implements MovieSessionDao {
@@ -18,11 +18,10 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
     @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery(
-                    "from MovieSession a join fetch Movie b on a.movie.id = b.id "
-                            + "join fetch CinemaHall c on a.cinemaHall.id = c.id "
-                            + "where b.id = :id "
-                            + "and show_time between :start and :end");
+            Query<MovieSession> query = session.createQuery(
+                    "from MovieSession "
+                            + "where movie.id = :id "
+                            + "and show_time between :start and :end", MovieSession.class);
             query.setParameter("id", movieId);
             query.setParameter("start", date.atTime(LocalTime.MIN));
             query.setParameter("end", date.atTime(LocalTime.MAX));
