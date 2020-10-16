@@ -63,8 +63,16 @@ public class Main {
                 (UserService) injector.getInstance(UserService.class);
         AuthenticationService authenticationService =
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
-        log.info("Register new user " + authenticationService.register("best@email.ever", "1234"));
-        log.info("Find user by email " + authenticationService.login("best@email.ever", "1234"));
+        try {
+            authenticationService.register("best@email.ever", "1234");
+        } catch (Exception e) {
+            log.error("Can't register new user. ", e);
+        }
+        try {
+            authenticationService.login("best@email.ever", "1234");
+        } catch (Exception e) {
+            log.error("Log in error. ", e);
+        }
 
         User user = userService.findByEmail("best@email.ever").get();
         ShoppingCartService shoppingCartService
