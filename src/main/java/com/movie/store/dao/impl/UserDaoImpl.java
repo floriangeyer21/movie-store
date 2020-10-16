@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
             transaction = session.beginTransaction();
             session.persist(user);
             transaction.commit();
-            log.info(user.getClass());
+            log.info("Successfully insert user entity. " + user);
             return user;
         } catch (Exception e) {
             if (transaction != null) {

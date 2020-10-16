@@ -24,6 +24,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
             transaction = session.beginTransaction();
             session.save(shoppingCart);
             transaction.commit();
+            log.info("Successfully insert shopping cart entity. " + shoppingCart);
             return shoppingCart;
         } catch (Exception e) {
             if (transaction != null) {
@@ -48,6 +49,8 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                             + "join fetch s.user "
                             + "where s.user.id = :id ", ShoppingCart.class);
             query.setParameter("id", user.getId());
+            log.info("Successfully update shopping cart entity with user id " + user.getId()
+                    + " and email " + user.getEmail());
             return query.uniqueResult();
         }
     }

@@ -7,9 +7,11 @@ import com.movie.store.model.CinemaHall;
 import com.movie.store.util.HibernateUtil;
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
+import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+@Log4j
 @Dao
 public class CinemaHallDaoImpl implements CinemaHallDao {
     @Override
@@ -21,6 +23,7 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             transaction = session.beginTransaction();
             session.saveOrUpdate(cinemaHall);
             transaction.commit();
+            log.info("Successfully insert cinema hall entity. " + cinemaHall);
             return cinemaHall;
         } catch (Exception e) {
             if (transaction != null) {

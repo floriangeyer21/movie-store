@@ -7,9 +7,11 @@ import com.movie.store.model.Movie;
 import com.movie.store.util.HibernateUtil;
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
+import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+@Log4j
 @Dao
 public class MovieDaoImpl implements MovieDao {
 
@@ -22,6 +24,7 @@ public class MovieDaoImpl implements MovieDao {
             transaction = session.beginTransaction();
             session.save(movie);
             transaction.commit();
+            log.info("Successfully insert movie entity. " + movie);
             return movie;
         } catch (Exception e) {
             if (transaction != null) {

@@ -8,10 +8,12 @@ import com.movie.store.util.HibernateUtil;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+@Log4j
 @Dao
 public class MovieSessionDaoImpl implements MovieSessionDao {
 
@@ -42,6 +44,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             transaction = session.beginTransaction();
             session.persist(movieSession);
             transaction.commit();
+            log.info("Successfully insert movie session entity. " + movieSession);
             return movieSession;
         } catch (Exception e) {
             if (transaction != null) {
