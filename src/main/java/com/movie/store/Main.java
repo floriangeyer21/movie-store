@@ -63,15 +63,12 @@ public class Main {
                 (UserService) injector.getInstance(UserService.class);
         AuthenticationService authenticationService =
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
-        try {
-            authenticationService.register("best@email.ever", "1234");
-        } catch (Exception e) {
-            log.error("Can't register new user. ", e);
-        }
+        log.info("Register a new user. "
+                + authenticationService.register("best@email.ever", "1234"));
         try {
             authenticationService.login("best@email.ever", "1234");
         } catch (Exception e) {
-            log.error("Log in error. ", e);
+            log.warn("Log in error. ", e);
         }
 
         User user = userService.findByEmail("best@email.ever").get();
@@ -83,7 +80,7 @@ public class Main {
         log.info("test getByUser() " + shoppingCart);
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         Order order = orderService.completeOrder(shoppingCart.getTickets(), user);
-        orderService.getOrderHistory(user).forEach(System.out::println);
+        orderService.getOrderHistory(user).forEach(log::info);
         ShoppingCart shoppingCart1 = shoppingCartService.getByUser(user);
         log.info("test clear method " + shoppingCartService.clear(shoppingCart));
         log.info(orderService.getOrderHistory(user));
