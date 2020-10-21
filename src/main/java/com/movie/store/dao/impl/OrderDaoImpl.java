@@ -2,26 +2,31 @@ package com.movie.store.dao.impl;
 
 import com.movie.store.dao.OrderDao;
 import com.movie.store.exceptions.DataProcessingException;
-import com.movie.store.lib.Dao;
 import com.movie.store.model.Order;
 import com.movie.store.model.User;
-import com.movie.store.util.HibernateUtil;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
-@Dao
 @Log4j
-public class OrderDaoImpl implements OrderDao {
+@Repository
+public class OrderDaoImpl extends AbstractSessionFactoryCreator implements OrderDao {
+
+    public OrderDaoImpl(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
     @Override
     public Order add(Order order) {
         log.info("Calling method add() in OrderDaoImpl");
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(order);
             transaction.commit();
@@ -43,7 +48,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> getByUser(User user) {
         log.info("Calling method getByUser() in OrderDaoImpl");
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<Order> query = session.createQuery(
                     "select distinct o from Order o "
                             + "left join fetch o.tickets t "
