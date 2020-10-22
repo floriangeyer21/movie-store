@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Log4j
 @Repository
-public class UserDaoImpl  implements UserDao {
+public class UserDaoImpl implements UserDao {
     private final SessionFactory sessionFactory;
 
     public UserDaoImpl(SessionFactory sessionFActory) {
