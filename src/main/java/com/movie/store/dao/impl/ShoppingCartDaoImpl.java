@@ -2,28 +2,35 @@ package com.movie.store.dao.impl;
 
 import com.movie.store.dao.ShoppingCartDao;
 import com.movie.store.exceptions.DataProcessingException;
-import com.movie.store.lib.Dao;
 import com.movie.store.model.ShoppingCart;
 import com.movie.store.model.User;
-import com.movie.store.util.HibernateUtil;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 @Log4j
-@Dao
+@Repository
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
+    private final SessionFactory sessionFactory;
+
+    public ShoppingCartDaoImpl(SessionFactory sessionFActory) {
+        this.sessionFactory = sessionFActory;
+    }
+
     @Override
     public ShoppingCart add(ShoppingCart shoppingCart) {
         log.info("Calling method add() in ShoppingCartDao");
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(shoppingCart);
             transaction.commit();
+            log.info("Successfully insert shopping cart entity. " + shoppingCart);
             return shoppingCart;
         } catch (Exception e) {
             if (transaction != null) {
@@ -41,13 +48,15 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     @Override
     public ShoppingCart getByUser(User user) {
         log.info("Calling method getByUser() in ShoppingCartDao");
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<ShoppingCart> query = session.createQuery(
                     "from ShoppingCart s "
                             + "left join fetch s.tickets t "
                             + "join fetch s.user "
                             + "where s.user.id = :id ", ShoppingCart.class);
             query.setParameter("id", user.getId());
+            log.info("Successfully update shopping cart entity with user id " + user.getId()
+                    + " and email " + user.getEmail());
             return query.uniqueResult();
         }
     }
@@ -58,7 +67,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.update(shoppingCart);
             transaction.commit();

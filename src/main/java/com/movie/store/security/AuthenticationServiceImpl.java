@@ -1,20 +1,23 @@
 package com.movie.store.security;
 
 import com.movie.store.exceptions.AuthenticationException;
-import com.movie.store.lib.Inject;
-import com.movie.store.lib.Service;
 import com.movie.store.model.User;
 import com.movie.store.service.ShoppingCartService;
 import com.movie.store.service.UserService;
 import com.movie.store.util.HashUtil;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-    @Inject
-    private UserService userService;
-    @Inject
-    private ShoppingCartService shoppingCartService;
+    private final UserService userService;
+    private final ShoppingCartService shoppingCartService;
+
+    public AuthenticationServiceImpl(UserService userService,
+                                     ShoppingCartService shoppingCartService) {
+        this.userService = userService;
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @Override
     public User login(String email, String password) throws AuthenticationException {

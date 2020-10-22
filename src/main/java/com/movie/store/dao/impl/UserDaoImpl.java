@@ -2,28 +2,34 @@ package com.movie.store.dao.impl;
 
 import com.movie.store.dao.UserDao;
 import com.movie.store.exceptions.DataProcessingException;
-import com.movie.store.lib.Dao;
 import com.movie.store.model.User;
-import com.movie.store.util.HibernateUtil;
 import java.util.Optional;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
-@Dao
 @Log4j
+@Repository
 public class UserDaoImpl implements UserDao {
+    private final SessionFactory sessionFactory;
+
+    public UserDaoImpl(SessionFactory sessionFActory) {
+        this.sessionFactory = sessionFActory;
+    }
+
     @Override
     public User add(User user) {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.persist(user);
             transaction.commit();
-            log.info(user.getClass());
+            log.info("Successfully insert user entity. " + user);
             return user;
         } catch (Exception e) {
             if (transaction != null) {
@@ -39,7 +45,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery(
                     "from User where email = :email ", User.class);
             query.setParameter("email", email);

@@ -1,7 +1,7 @@
 package com.movie.store;
 
+import com.movie.store.configuration.ApplicationConfig;
 import com.movie.store.exceptions.AuthenticationException;
-import com.movie.store.lib.Injector;
 import com.movie.store.model.CinemaHall;
 import com.movie.store.model.Movie;
 import com.movie.store.model.MovieSession;
@@ -18,14 +18,15 @@ import com.movie.store.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.extern.log4j.Log4j;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 @Log4j
 public class Main {
-    private static Injector injector = Injector.getInstance("com.movie.store");
 
     public static void main(String[] args) throws AuthenticationException {
-        MovieService movieService =
-                (MovieService) injector.getInstance(MovieService.class);
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(ApplicationConfig.class);
+        MovieService movieService = context.getBean(MovieService.class);
         Movie movie = new Movie();
         movie.setTitle("Rain Man");
         movieService.add(movie);
@@ -42,11 +43,9 @@ public class Main {
         movieSession1.setShowTime(dateTime1);
         movieSession1.setCinemaHall(cinemaHall);
         cinemaHall.setCapacity(100);
-        CinemaHallService cinemaHallService
-                = (CinemaHallService) injector.getInstance(CinemaHallService.class);
+        CinemaHallService cinemaHallService = context.getBean(CinemaHallService.class);
         cinemaHallService.add(cinemaHall);
-        MovieSessionService movieSessionService =
-                (MovieSessionService) injector.getInstance(MovieSessionService.class);
+        MovieSessionService movieSessionService = context.getBean(MovieSessionService.class);
         movieSessionService.add(movieSession);
         movieSessionService.add(movieSession1);
         log.info("Create new entity: " + cinemaHall);
@@ -59,23 +58,26 @@ public class Main {
                 + movieService.getAll());
         log.info("Result of getAll() methods in cinemaHallService: "
                 + cinemaHallService.getAll());
-        UserService userService =
-                (UserService) injector.getInstance(UserService.class);
-        AuthenticationService authenticationService =
-                (AuthenticationService) injector.getInstance(AuthenticationService.class);
-        log.info("Register new user " + authenticationService.register("best@email.ever", "1234"));
-        log.info("Find user by email " + authenticationService.login("best@email.ever", "1234"));
+        UserService userService = context.getBean(UserService.class);
+        AuthenticationService authenticationService = context.getBean(AuthenticationService.class);
+        log.info("Register a new user. "
+                + authenticationService.register("best@email.ever", "1234"));
+        try {
+            authenticationService.login("best@email.ever", "1234");
+        } catch (Exception e) {
+            log.warn("Log in error. ", e);
+        }
 
         User user = userService.findByEmail("best@email.ever").get();
         ShoppingCartService shoppingCartService
-                = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+                = context.getBean(ShoppingCartService.class);
         shoppingCartService.addSession(movieSession, user);
         shoppingCartService.addSession(movieSession1, user);
         ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
         log.info("test getByUser() " + shoppingCart);
-        OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
+        OrderService orderService = context.getBean(OrderService.class);
         Order order = orderService.completeOrder(shoppingCart.getTickets(), user);
-        orderService.getOrderHistory(user).forEach(System.out::println);
+        orderService.getOrderHistory(user).forEach(log::info);
         ShoppingCart shoppingCart1 = shoppingCartService.getByUser(user);
         log.info("test clear method " + shoppingCartService.clear(shoppingCart));
         log.info(orderService.getOrderHistory(user));
