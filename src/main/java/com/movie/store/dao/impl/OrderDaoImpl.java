@@ -1,6 +1,6 @@
 package com.movie.store.dao.impl;
 
-import com.movie.store.dao.OrderDao;
+import com.movie.store.dao.interfaces.OrderDao;
 import com.movie.store.exceptions.DataProcessingException;
 import com.movie.store.model.Order;
 import com.movie.store.model.User;

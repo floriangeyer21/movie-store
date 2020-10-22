@@ -1,8 +1,8 @@
 package com.movie.store.service.impl;
 
-import com.movie.store.dao.MovieSessionDao;
+import com.movie.store.dao.interfaces.MovieSessionDao;
 import com.movie.store.model.MovieSession;
-import com.movie.store.service.MovieSessionService;
+import com.movie.store.service.interfaces.MovieSessionService;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.movie.store.service.impl;
 
-import com.movie.store.dao.CinemaHallDao;
+import com.movie.store.dao.interfaces.CinemaHallDao;
 import com.movie.store.model.CinemaHall;
-import com.movie.store.service.CinemaHallService;
+import com.movie.store.service.interfaces.CinemaHallService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +24,10 @@ public class CinemaHallServiceImpl implements CinemaHallService {
     @Override
     public List<CinemaHall> getAll() {
         return cinemaHallDao.getAll();
+    }
+
+    @Override
+    public CinemaHall getById(Long id) {
+        return cinemaHallDao.getById(id);
     }
 }

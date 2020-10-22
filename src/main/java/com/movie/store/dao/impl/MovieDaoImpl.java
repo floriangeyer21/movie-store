@@ -1,6 +1,6 @@
 package com.movie.store.dao.impl;
 
-import com.movie.store.dao.MovieDao;
+import com.movie.store.dao.interfaces.MovieDao;
 import com.movie.store.exceptions.DataProcessingException;
 import com.movie.store.model.Movie;
 import java.util.List;
@@ -22,6 +22,7 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public Movie add(Movie movie) {
+        log.info("Calling method add() in MovieDaoImpl, " + movie);
         Transaction transaction = null;
         Session session = null;
         try {
@@ -45,6 +46,7 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public List<Movie> getAll() {
+        log.info("Calling method getAll() in MovieDaoImpl");
         try (Session session = sessionFactory.openSession()) {
             CriteriaQuery<Movie> criteriaQuery = session.getCriteriaBuilder()
                     .createQuery(Movie.class);
@@ -52,6 +54,17 @@ public class MovieDaoImpl implements MovieDao {
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Error retrieving all movies. ", e);
+        }
+    }
+
+    @Override
+    public Movie getById(Long id) {
+        log.info("Calling method getById() in MovieDaoImpl, id = " + id);
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Movie.class, id);
+        } catch (Exception e) {
+            throw new DataProcessingException(
+                    "Can't retrieve movie from db by id: " + id, e);
         }
     }
 }

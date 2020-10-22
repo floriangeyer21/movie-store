@@ -1,6 +1,6 @@
 package com.movie.store.dao.impl;
 
-import com.movie.store.dao.MovieSessionDao;
+import com.movie.store.dao.interfaces.MovieSessionDao;
 import com.movie.store.exceptions.DataProcessingException;
 import com.movie.store.model.MovieSession;
 import java.time.LocalDate;

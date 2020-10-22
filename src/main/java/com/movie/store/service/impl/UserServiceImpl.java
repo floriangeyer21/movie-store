@@ -1,8 +1,8 @@
 package com.movie.store.service.impl;
 
-import com.movie.store.dao.UserDao;
+import com.movie.store.dao.interfaces.UserDao;
 import com.movie.store.model.User;
-import com.movie.store.service.UserService;
+import com.movie.store.service.interfaces.UserService;
 import com.movie.store.util.HashUtil;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

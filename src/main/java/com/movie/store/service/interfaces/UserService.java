@@ -1,4 +1,4 @@
-package com.movie.store.service;
+package com.movie.store.service.interfaces;
 
 import com.movie.store.model.User;
 import java.util.Optional;

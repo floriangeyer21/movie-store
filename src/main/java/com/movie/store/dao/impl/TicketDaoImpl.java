@@ -1,6 +1,6 @@
 package com.movie.store.dao.impl;
 
-import com.movie.store.dao.TicketDao;
+import com.movie.store.dao.interfaces.TicketDao;
 import com.movie.store.exceptions.DataProcessingException;
 import com.movie.store.model.Ticket;
 import lombok.extern.log4j.Log4j;
