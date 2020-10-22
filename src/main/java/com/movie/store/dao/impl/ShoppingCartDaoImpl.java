@@ -13,10 +13,11 @@ import org.springframework.stereotype.Repository;
 
 @Log4j
 @Repository
-public class ShoppingCartDaoImpl extends AbstractSessionFactoryCreator implements ShoppingCartDao {
+public class ShoppingCartDaoImpl implements ShoppingCartDao {
+    private final SessionFactory sessionFactory;
 
-    public ShoppingCartDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public ShoppingCartDaoImpl(SessionFactory sessionFActory) {
+        this.sessionFactory = sessionFActory;
     }
 
     @Override

@@ -13,10 +13,11 @@ import org.springframework.stereotype.Repository;
 
 @Log4j
 @Repository
-public class UserDaoImpl extends AbstractSessionFactoryCreator implements UserDao {
+public class UserDaoImpl  implements UserDao {
+    private final SessionFactory sessionFactory;
 
-    public UserDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public UserDaoImpl(SessionFactory sessionFActory) {
+        this.sessionFactory = sessionFActory;
     }
 
     @Override

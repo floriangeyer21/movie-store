@@ -11,10 +11,11 @@ import org.springframework.stereotype.Repository;
 
 @Log4j
 @Repository
-public class TicketDaoImpl extends AbstractSessionFactoryCreator implements TicketDao {
+public class TicketDaoImpl implements TicketDao {
+    private final SessionFactory sessionFactory;
 
-    public TicketDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public TicketDaoImpl(SessionFactory sessionFActory) {
+        this.sessionFactory = sessionFActory;
     }
 
     @Override

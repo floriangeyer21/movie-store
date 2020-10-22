@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 @Log4j
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-    private ShoppingCartDao shoppingCartDao;
-    private TicketDao ticketDao;
+    private final ShoppingCartDao shoppingCartDao;
+    private final TicketDao ticketDao;
 
     @Autowired
     public ShoppingCartServiceImpl(ShoppingCartDao shoppingCartDao, TicketDao ticketDao) {

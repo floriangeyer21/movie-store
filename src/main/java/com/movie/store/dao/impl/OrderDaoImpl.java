@@ -14,10 +14,11 @@ import org.springframework.stereotype.Repository;
 
 @Log4j
 @Repository
-public class OrderDaoImpl extends AbstractSessionFactoryCreator implements OrderDao {
+public class OrderDaoImpl implements OrderDao {
+    private final SessionFactory sessionFactory;
 
-    public OrderDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public OrderDaoImpl(SessionFactory sessionFActory) {
+        this.sessionFactory = sessionFActory;
     }
 
     @Override

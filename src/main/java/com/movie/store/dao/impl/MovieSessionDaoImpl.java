@@ -15,10 +15,11 @@ import org.springframework.stereotype.Repository;
 
 @Log4j
 @Repository
-public class MovieSessionDaoImpl extends AbstractSessionFactoryCreator implements MovieSessionDao {
+public class MovieSessionDaoImpl implements MovieSessionDao {
+    private final SessionFactory sessionFactory;
 
-    public MovieSessionDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public MovieSessionDaoImpl(SessionFactory sessionFActory) {
+        this.sessionFactory = sessionFActory;
     }
 
     @Override
