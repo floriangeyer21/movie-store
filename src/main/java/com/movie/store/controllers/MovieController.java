@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Log4j
 @RestController
-@RequestMapping("/movie")
+@RequestMapping("/movies")
 public class MovieController {
     private final MovieMapper movieMapper;
     private final MovieService movieService;
@@ -28,18 +28,16 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public MovieResponseDto addMovie(@RequestBody MovieRequestDto movieRequestDto) {
         log.info("Calling method addMovie in MovieController, " + movieRequestDto);
         Movie movie = movieMapper.mapRequestDtoToMovie(movieRequestDto);
-        movie.setId(movieService.add(movie).getId());
-        return movieMapper.mapMovieToResponseDto(movie);
+        return movieMapper.mapMovieToResponseDto(movieService.add(movie));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<MovieResponseDto> getAllMovie() {
         log.info("Calling method getAllMovie in MovieController");
         return movieMapper.mapAllMovieToResponseDto(movieService.getAll());
     }
-
 }

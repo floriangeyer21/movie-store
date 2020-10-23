@@ -17,7 +17,7 @@ public class InjectController {
         this.cinemaHallServcie = cinemaHallServcie;
     }
 
-    @GetMapping("/cinema_hall")
+    @GetMapping("/cinema-hall")
     public void injectCinemaHall() {
         log.info("Calling method injectCinemaHall in InjectController");
         CinemaHall cinemaHall = CinemaHall.builder()

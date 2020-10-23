@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Log4j
 @RestController
-@RequestMapping("/movie_session")
+@RequestMapping("/movie-sessions")
 public class MovieSessionController {
     private final MovieSessionMapper movieSessionMapper;
     private final MovieSessionService movieSessionService;
@@ -30,7 +30,7 @@ public class MovieSessionController {
         this.movieSessionMapper = movieSessionMapper;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public MovieSessionResponseDto addMovieSession(
             @RequestBody MovieSessionRequestDto movieSessionRequestDto) {
         log.info("Calling method addMovieSession in MovieSessionController, "
@@ -45,11 +45,11 @@ public class MovieSessionController {
     public List<MovieSessionResponseDto> getAllMovieSession(@RequestParam("movie_id")
                                                                         Long movieId,
                                                             @RequestParam("show_time")
-                                                                    String showTime) {
+                                                                    LocalDateTime showTime) {
         log.info("Calling method getAllMovieSession in MovieSessionController, movie id = "
                 + movieId + ", show time =  " + movieId);
         return movieSessionMapper.mapAllMovieSessionToResponseDto(
                 movieSessionService.findAvailableSessions(
-                        movieId, LocalDateTime.parse(showTime).toLocalDate()));
+                        movieId, showTime.toLocalDate()));
     }
 }

@@ -7,7 +7,6 @@ import com.movie.store.model.dto.MovieSessionRequestDto;
 import com.movie.store.model.dto.MovieSessionResponseDto;
 import com.movie.store.service.interfaces.CinemaHallService;
 import com.movie.store.service.interfaces.MovieService;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j;
@@ -34,7 +33,7 @@ public class MovieSessionMapper {
         Movie movie = movieService.getById(Long.valueOf(movieSessionRequestDto.getMovieId()));
         return MovieSession.builder()
                 .movie(movie)
-                .showTime(LocalDateTime.parse(movieSessionRequestDto.getShowTime()))
+                .showTime(movieSessionRequestDto.getShowTime())
                 .cinemaHall(cinemaHall).build();
     }
 
@@ -43,9 +42,10 @@ public class MovieSessionMapper {
                 + movieSession);
         return MovieSessionResponseDto.builder()
                 .id(movieSession.getId())
+                .movieId(movieSession.getMovie().getId())
                 .cinemaHallId(movieSession.getCinemaHall().getId().toString())
                 .movieTitle(movieSession.getMovie().getTitle())
-                .showTime(movieSession.getShowTime().toString()).build();
+                .showTime(movieSession.getShowTime()).build();
     }
 
     public List<MovieSessionResponseDto> mapAllMovieSessionToResponseDto(
