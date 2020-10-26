@@ -3,12 +3,9 @@ package com.movie.store.service.mappers;
 import com.movie.store.model.CinemaHall;
 import com.movie.store.model.dto.CinemaHallRequestDto;
 import com.movie.store.model.dto.CinemaHallResponseDto;
-import com.movie.store.service.interfaces.CinemaHallService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CinemaHallMapper {

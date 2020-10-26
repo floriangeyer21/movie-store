@@ -75,7 +75,8 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             query.setParameter("id", movieSessionId);
             return query.uniqueResult();
         } catch (Exception e) {
-            throw new DataProcessingException("Can't find movie session by id " + movieSessionId, e);
+            throw new DataProcessingException(
+                    "Can't find movie session by id " + movieSessionId, e);
         }
     }
 }

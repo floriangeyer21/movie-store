@@ -10,7 +10,12 @@ import com.movie.store.service.mappers.OrderMapper;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/orders")
@@ -33,7 +38,7 @@ public class OrderController {
 
     @PostMapping
     public void completeOrder(@RequestBody Long userId) {
-        User user = userService.findById(userId).get();
+        User user = userService.findById(userId);
         Set<Ticket> tickets = shoppingCartService.getByUser(user).getTickets();
         orderService.completeOrder(tickets, user);
     }
@@ -41,6 +46,6 @@ public class OrderController {
     @GetMapping
     public List<OrderResponseDto> getAllOrdersByUserId(@RequestParam("userId") Long id) {
         return orderMapper.mapAllOrderToResponseDto(
-                orderService.getOrderHistory(userService.findById(id).get()));
+                orderService.getOrderHistory(userService.findById(id)));
     }
 }
