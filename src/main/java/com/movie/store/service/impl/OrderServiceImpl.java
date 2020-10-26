@@ -1,11 +1,11 @@
 package com.movie.store.service.impl;
 
-import com.movie.store.dao.OrderDao;
+import com.movie.store.dao.interfaces.OrderDao;
 import com.movie.store.model.Order;
 import com.movie.store.model.Ticket;
 import com.movie.store.model.User;
-import com.movie.store.service.OrderService;
-import com.movie.store.service.ShoppingCartService;
+import com.movie.store.service.interfaces.OrderService;
+import com.movie.store.service.interfaces.ShoppingCartService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;

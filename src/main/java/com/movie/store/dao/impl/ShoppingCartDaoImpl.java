@@ -1,6 +1,6 @@
 package com.movie.store.dao.impl;
 
-import com.movie.store.dao.ShoppingCartDao;
+import com.movie.store.dao.interfaces.ShoppingCartDao;
 import com.movie.store.exceptions.DataProcessingException;
 import com.movie.store.model.ShoppingCart;
 import com.movie.store.model.User;

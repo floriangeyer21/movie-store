@@ -2,8 +2,8 @@ package com.movie.store.security;
 
 import com.movie.store.exceptions.AuthenticationException;
 import com.movie.store.model.User;
-import com.movie.store.service.ShoppingCartService;
-import com.movie.store.service.UserService;
+import com.movie.store.service.interfaces.ShoppingCartService;
+import com.movie.store.service.interfaces.UserService;
 import com.movie.store.util.HashUtil;
 import java.util.Optional;
 import org.springframework.stereotype.Service;

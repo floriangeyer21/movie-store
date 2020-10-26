@@ -1,12 +1,12 @@
 package com.movie.store.service.impl;
 
-import com.movie.store.dao.ShoppingCartDao;
-import com.movie.store.dao.TicketDao;
+import com.movie.store.dao.interfaces.ShoppingCartDao;
+import com.movie.store.dao.interfaces.TicketDao;
 import com.movie.store.model.MovieSession;
 import com.movie.store.model.ShoppingCart;
 import com.movie.store.model.Ticket;
 import com.movie.store.model.User;
-import com.movie.store.service.ShoppingCartService;
+import com.movie.store.service.interfaces.ShoppingCartService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

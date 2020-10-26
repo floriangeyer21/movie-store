@@ -1,4 +1,4 @@
-package com.movie.store.dao;
+package com.movie.store.dao.interfaces;
 
 import com.movie.store.model.ShoppingCart;
 import com.movie.store.model.User;

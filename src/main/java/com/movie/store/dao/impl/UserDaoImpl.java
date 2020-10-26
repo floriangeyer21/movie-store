@@ -1,6 +1,6 @@
 package com.movie.store.dao.impl;
 
-import com.movie.store.dao.UserDao;
+import com.movie.store.dao.interfaces.UserDao;
 import com.movie.store.exceptions.DataProcessingException;
 import com.movie.store.model.User;
 import java.util.Optional;

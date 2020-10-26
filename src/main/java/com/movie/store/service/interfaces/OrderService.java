@@ -1,4 +1,4 @@
-package com.movie.store.service;
+package com.movie.store.service.interfaces;
 
 import com.movie.store.model.Order;
 import com.movie.store.model.Ticket;

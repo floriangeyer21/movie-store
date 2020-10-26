@@ -1,8 +1,8 @@
 package com.movie.store.service.impl;
 
-import com.movie.store.dao.MovieDao;
+import com.movie.store.dao.interfaces.MovieDao;
 import com.movie.store.model.Movie;
-import com.movie.store.service.MovieService;
+import com.movie.store.service.interfaces.MovieService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +24,10 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> getAll() {
         return movieDao.getAll();
+    }
+
+    @Override
+    public Movie getById(Long id) {
+        return movieDao.getById(id);
     }
 }

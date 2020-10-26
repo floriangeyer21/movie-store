@@ -1,6 +1,6 @@
 package com.movie.store.dao.impl;
 
-import com.movie.store.dao.CinemaHallDao;
+import com.movie.store.dao.interfaces.CinemaHallDao;
 import com.movie.store.exceptions.DataProcessingException;
 import com.movie.store.model.CinemaHall;
 import java.util.List;
@@ -22,6 +22,7 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
 
     @Override
     public CinemaHall add(CinemaHall cinemaHall) {
+        log.info("Calling method add() in CinemaHallDaoImpl, " + cinemaHall);
         Transaction transaction = null;
         Session session = null;
         try {
@@ -45,6 +46,7 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
 
     @Override
     public List<CinemaHall> getAll() {
+        log.info("Calling method getAll() in CinemaHallDaoImpl");
         try (Session session = sessionFactory.openSession()) {
             CriteriaQuery<CinemaHall> criteriaQuery = session.getCriteriaBuilder()
                     .createQuery(CinemaHall.class);
@@ -52,6 +54,17 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Error retrieving all cinema halls. ", e);
+        }
+    }
+
+    @Override
+    public CinemaHall getById(Long id) {
+        log.info("Calling method getById() in CinemaHallDaoImpl with id " + id);
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(CinemaHall.class, id);
+        } catch (Exception e) {
+            throw new DataProcessingException(
+                    "Can't retrieve cinema hall from db, by id " + id, e);
         }
     }
 }
