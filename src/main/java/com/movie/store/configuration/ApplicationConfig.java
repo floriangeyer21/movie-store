@@ -16,7 +16,6 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
         "com.movie.store.dao",
         "com.movie.store.service",
         "com.movie.store.security",
-        "com.movie.store.model.dto"
 })
 public class ApplicationConfig {
     private final Environment environment;

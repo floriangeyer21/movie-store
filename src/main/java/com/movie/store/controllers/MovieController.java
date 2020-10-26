@@ -30,14 +30,12 @@ public class MovieController {
 
     @PostMapping
     public MovieResponseDto addMovie(@RequestBody MovieRequestDto movieRequestDto) {
-        log.info("Calling method addMovie in MovieController, " + movieRequestDto);
         Movie movie = movieMapper.mapRequestDtoToMovie(movieRequestDto);
         return movieMapper.mapMovieToResponseDto(movieService.add(movie));
     }
 
     @GetMapping
-    public List<MovieResponseDto> getAllMovie() {
-        log.info("Calling method getAllMovie in MovieController");
+    public List<MovieResponseDto> getAllMovies() {
         return movieMapper.mapAllMovieToResponseDto(movieService.getAll());
     }
 }
