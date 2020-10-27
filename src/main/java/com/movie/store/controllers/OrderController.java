@@ -9,6 +9,7 @@ import com.movie.store.service.interfaces.UserService;
 import com.movie.store.service.mappers.OrderMapper;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +46,8 @@ public class OrderController {
 
     @GetMapping
     public List<OrderResponseDto> getAllOrdersByUserId(@RequestParam("userId") Long id) {
-        return orderMapper.mapAllOrderToResponseDto(
-                orderService.getOrderHistory(userService.findById(id)));
+        return orderService.getOrderHistory(userService.findById(id)).stream()
+                .map(orderMapper::mapOrderToResponseDto)
+                .collect(Collectors.toList());
     }
 }

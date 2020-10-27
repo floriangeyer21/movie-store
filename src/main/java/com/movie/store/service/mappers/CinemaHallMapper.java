@@ -3,8 +3,6 @@ package com.movie.store.service.mappers;
 import com.movie.store.model.CinemaHall;
 import com.movie.store.model.dto.CinemaHallRequestDto;
 import com.movie.store.model.dto.CinemaHallResponseDto;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,11 +19,5 @@ public class CinemaHallMapper {
                 .capacity(cinemaHall.getCapacity())
                 .description(cinemaHall.getDescription())
                 .id(cinemaHall.getId()).build();
-    }
-
-    public List<CinemaHallResponseDto> mapAllCinemaHallToResponseDto(List<CinemaHall> cinemaHalls) {
-        return cinemaHalls.stream()
-                .map(this::mapCinemaHallToResponseDto)
-                .collect(Collectors.toList());
     }
 }

@@ -9,7 +9,6 @@ import com.movie.store.service.interfaces.UserService;
 import com.movie.store.service.mappers.ShoppingCartMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +32,8 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/movie-sessions")
-    public void addMovieSession(@RequestParam("userId") Long userId,
-                                 @RequestBody Long movieSessionId) {
+    public void addMovieSession(@RequestParam Long userId,
+                                 @RequestParam Long movieSessionId) {
         User user = userService.findById(userId);
         MovieSession movieSession = movieSessionService.findById(movieSessionId);
         shoppingCartService.addSession(movieSession, user);

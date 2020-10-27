@@ -2,7 +2,8 @@ package com.movie.store.service.mappers;
 
 import com.movie.store.model.Order;
 import com.movie.store.model.dto.OrderResponseDto;
-import java.util.List;
+import com.movie.store.model.dto.TicketResponseDto;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,16 +18,13 @@ public class OrderMapper {
     }
 
     public OrderResponseDto mapOrderToResponseDto(Order order) {
+        Set<TicketResponseDto> tickets = order.getTickets().stream()
+                .map(ticketMapper::mapTicketToResponseDto)
+                .collect(Collectors.toSet());
         return OrderResponseDto.builder()
                 .id(order.getId())
-                .tickets(ticketMapper.mapAllTicketToResponseDto(order.getTickets()))
+                .tickets(tickets)
                 .userId(order.getUser().getId())
                 .dateOfCreation(order.getDateOfCreation()).build();
-    }
-
-    public List<OrderResponseDto> mapAllOrderToResponseDto(List<Order> orders) {
-        return orders.stream()
-                .map(this::mapOrderToResponseDto)
-                .collect(Collectors.toList());
     }
 }
