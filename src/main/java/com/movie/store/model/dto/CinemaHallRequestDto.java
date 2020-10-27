@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CinemaHallRequestDto {
     private int capacity;
+    private String description;
 }

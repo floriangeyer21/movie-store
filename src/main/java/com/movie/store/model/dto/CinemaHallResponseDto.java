@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class CinemaHallResponseDto {
     private Long id;
     private int capacity;
+    private String description;
 }

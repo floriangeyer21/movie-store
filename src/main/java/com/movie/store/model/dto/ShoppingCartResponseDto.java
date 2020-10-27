@@ -12,6 +12,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ShoppingCartResponseDto {
     private Long id;
-    private Long userId;
     private Set<TicketResponseDto> tickets;
 }

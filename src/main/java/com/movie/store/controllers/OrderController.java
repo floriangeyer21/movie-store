@@ -36,7 +36,7 @@ public class OrderController {
         this.shoppingCartService = shoppingCartService;
     }
 
-    @PostMapping
+    @PostMapping("/complete")
     public void completeOrder(@RequestBody Long userId) {
         User user = userService.findById(userId);
         Set<Ticket> tickets = shoppingCartService.getByUser(user).getTickets();

@@ -16,6 +16,6 @@ public class ShoppingCartMapper {
         return ShoppingCartResponseDto.builder()
                 .id(shoppingCart.getId())
                 .tickets(ticketMapper.mapAllTicketToResponseDto(shoppingCart.getTickets()))
-                .userId(shoppingCart.getUser().getId()).build();
+                .build();
     }
 }

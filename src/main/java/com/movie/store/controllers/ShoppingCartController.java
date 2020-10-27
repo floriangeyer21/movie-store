@@ -33,7 +33,7 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/movie-sessions")
-    public void addMovieSessions(@RequestParam("userId") Long userId,
+    public void addMovieSession(@RequestParam("userId") Long userId,
                                  @RequestBody Long movieSessionId) {
         User user = userService.findById(userId);
         MovieSession movieSession = movieSessionService.findById(movieSessionId);
