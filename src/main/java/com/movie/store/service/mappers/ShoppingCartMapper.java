@@ -16,12 +16,15 @@ public class ShoppingCartMapper {
     }
 
     public ShoppingCartResponseDto mapShoppingCartToResponseDto(ShoppingCart shoppingCart) {
-        Set<TicketResponseDto> tickets = shoppingCart.getTickets().stream()
-                .map(ticketMapper::mapTicketToResponseDto)
-                .collect(Collectors.toSet());
         return ShoppingCartResponseDto.builder()
                 .id(shoppingCart.getId())
-                .tickets(tickets)
+                .tickets(getTicketResponseDtos(shoppingCart))
                 .build();
+    }
+
+    private Set<TicketResponseDto> getTicketResponseDtos(ShoppingCart shoppingCart) {
+        return shoppingCart.getTickets().stream()
+                .map(ticketMapper::mapTicketToResponseDto)
+                .collect(Collectors.toSet());
     }
 }

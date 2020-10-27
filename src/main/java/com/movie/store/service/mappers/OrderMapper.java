@@ -18,13 +18,16 @@ public class OrderMapper {
     }
 
     public OrderResponseDto mapOrderToResponseDto(Order order) {
-        Set<TicketResponseDto> tickets = order.getTickets().stream()
-                .map(ticketMapper::mapTicketToResponseDto)
-                .collect(Collectors.toSet());
         return OrderResponseDto.builder()
                 .id(order.getId())
-                .tickets(tickets)
+                .tickets(getTicketResponseDtos(order))
                 .userId(order.getUser().getId())
                 .dateOfCreation(order.getDateOfCreation()).build();
+    }
+
+    private Set<TicketResponseDto> getTicketResponseDtos(Order order) {
+        return order.getTickets().stream()
+                .map(ticketMapper::mapTicketToResponseDto)
+                .collect(Collectors.toSet());
     }
 }
