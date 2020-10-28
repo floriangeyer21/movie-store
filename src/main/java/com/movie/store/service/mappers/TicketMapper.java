@@ -10,7 +10,7 @@ public class TicketMapper {
     public TicketResponseDto mapTicketToResponseDto(Ticket ticket) {
         return TicketResponseDto.builder()
                 .id(ticket.getId())
-                .capacity(ticket.getMovieSession().getCinemaHall().getCapacity())
+                .cinemaHallCapacity(ticket.getMovieSession().getCinemaHall().getCapacity())
                 .showTime(ticket.getMovieSession().getShowTime())
                 .movieTitle(ticket.getMovieSession().getMovie().getTitle()).build();
     }

@@ -7,6 +7,7 @@ import com.movie.store.service.interfaces.MovieSessionService;
 import com.movie.store.service.interfaces.ShoppingCartService;
 import com.movie.store.service.interfaces.UserService;
 import com.movie.store.service.mappers.ShoppingCartMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class ShoppingCartController {
     private final UserService userService;
     private final MovieSessionService movieSessionService;
 
+    @Autowired
     public ShoppingCartController(ShoppingCartService shoppingCartService,
                                   UserService userService,
                                   MovieSessionService movieSessionService,

@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> findById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return Optional.of(session.get(User.class, id));
+            return Optional.ofNullable(session.get(User.class, id));
         }
     }
 }

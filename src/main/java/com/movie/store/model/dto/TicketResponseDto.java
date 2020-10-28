@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class TicketResponseDto {
     private Long id;
     private LocalDateTime showTime;
-    private int capacity;
+    private int cinemaHallCapacity;
     private String movieTitle;
 }
