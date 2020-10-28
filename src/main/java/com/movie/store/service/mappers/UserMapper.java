@@ -12,6 +12,6 @@ public class UserMapper {
     public UserResponseDto mapUserToResponseDto(User user) {
         log.info("Calling method mapUserToResponseDto in UserMapper, " + user);
         return UserResponseDto.builder().email(user.getEmail())
-                .password(user.getPassword()).id(user.getId()).build();
+                .id(user.getId()).build();
     }
 }
