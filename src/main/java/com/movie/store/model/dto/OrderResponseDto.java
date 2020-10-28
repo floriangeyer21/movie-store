@@ -1,5 +1,7 @@
 package com.movie.store.model.dto;
 
+import java.time.LocalDateTime;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponseDto {
+public class OrderResponseDto {
     private Long id;
-    private String email;
+    private Long userId;
+    private LocalDateTime dateOfCreation;
+    private Set<TicketResponseDto> tickets;
 }

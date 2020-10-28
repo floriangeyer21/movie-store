@@ -1,8 +1,8 @@
 package com.movie.store.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +37,7 @@ public class Order {
                             referencedColumnName = "order_id") },
             inverseJoinColumns =
                     { @JoinColumn(name = "ticket_id", referencedColumnName = "id") })
-    private List<Ticket> tickets = new ArrayList<>();
+    private Set<Ticket> tickets = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponseDto {
-    private Long id;
-    private String email;
+public class CinemaHallRequestDto {
+    private int capacity;
+    private String description;
 }
