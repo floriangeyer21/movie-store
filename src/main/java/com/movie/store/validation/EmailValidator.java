@@ -8,8 +8,7 @@ public class EmailValidator implements
     private static final String EMAIL_REGEX = "^(.+)@(.+)$";
 
     @Override
-    public boolean isValid(String email,
-                           ConstraintValidatorContext cxt) {
+    public boolean isValid(String email, ConstraintValidatorContext cxt) {
         return email != null && email.matches(EMAIL_REGEX);
     }
 }

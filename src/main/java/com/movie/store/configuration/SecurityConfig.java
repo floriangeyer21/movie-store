@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .inMemoryAuthentication()
                 .passwordEncoder(getEncoder())
-                .withUser("user")
+                .withUser("user@gmail.com")
                 .password(getEncoder().encode("12345"))
                 .roles("USER");
     }
