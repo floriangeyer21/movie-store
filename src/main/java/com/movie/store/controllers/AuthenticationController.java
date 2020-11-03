@@ -3,6 +3,7 @@ package com.movie.store.controllers;
 import com.movie.store.model.dto.UserRequestDto;
 import com.movie.store.security.AuthenticationService;
 import com.movie.store.service.mappers.UserMapper;
+import javax.validation.Valid;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody UserRequestDto userRequestDto) {
+    public void register(@RequestBody @Valid UserRequestDto userRequestDto) {
         String email = userRequestDto.getEmail();
         String password = userRequestDto.getPassword();
         userMapper.mapUserToResponseDto(

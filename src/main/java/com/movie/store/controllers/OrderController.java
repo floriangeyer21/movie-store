@@ -11,11 +11,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -38,15 +37,16 @@ public class OrderController {
     }
 
     @PostMapping("/complete")
-    public void completeOrder(@RequestBody Long userId) {
-        User user = userService.findById(userId);
+    public void completeOrder(Authentication authentication) {
+        User user = userService.findByEmail(authentication.getName());
         Set<Ticket> tickets = shoppingCartService.getByUser(user).getTickets();
         orderService.completeOrder(tickets, user);
     }
 
     @GetMapping
-    public List<OrderResponseDto> getAllOrdersByUserId(@RequestParam("userId") Long id) {
-        return orderService.getOrderHistory(userService.findById(id)).stream()
+    public List<OrderResponseDto> getAllOrdersByUserId(Authentication authentication) {
+        return orderService.getOrderHistory(userService.findByEmail(authentication.getName()))
+                .stream()
                 .map(orderMapper::mapOrderToResponseDto)
                 .collect(Collectors.toList());
     }

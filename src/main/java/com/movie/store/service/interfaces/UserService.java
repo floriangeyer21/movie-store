@@ -1,12 +1,11 @@
 package com.movie.store.service.interfaces;
 
 import com.movie.store.model.User;
-import java.util.Optional;
 
 public interface UserService {
     User add(User user);
 
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
 
     User findById(Long id);
 }
