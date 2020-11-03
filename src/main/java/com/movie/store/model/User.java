@@ -1,16 +1,14 @@
 package com.movie.store.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.Set;
 
 @Entity
 @Data
@@ -28,6 +26,9 @@ public class User {
     private String email;
 
     private String password;
+
+    @ManyToMany
+    private Set<Role> roles;
 
     public User(String email, String password) {
         this.email = email;

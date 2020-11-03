@@ -1,6 +1,7 @@
 package com.movie.store.security;
 
 import com.movie.store.model.User;
+import com.movie.store.service.interfaces.RoleService;
 import com.movie.store.service.interfaces.ShoppingCartService;
 import com.movie.store.service.interfaces.UserService;
 import org.springframework.stereotype.Service;
@@ -9,11 +10,14 @@ import org.springframework.stereotype.Service;
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserService userService;
     private final ShoppingCartService shoppingCartService;
+    private final RoleService roleService;
 
     public AuthenticationServiceImpl(UserService userService,
-                                     ShoppingCartService shoppingCartService) {
+                                     ShoppingCartService shoppingCartService,
+                                     RoleService roleService) {
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
+        this.roleService = roleService;
     }
 
     @Override
