@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Log4j
 @RestController
-@RequestMapping("/user")
+@RequestMapping
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final UserMapper userMapper;

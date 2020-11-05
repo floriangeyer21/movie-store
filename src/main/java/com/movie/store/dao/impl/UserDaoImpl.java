@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.persist(user);
+            session.save(user);
             transaction.commit();
             log.info("Successfully insert user entity. " + user);
             return user;

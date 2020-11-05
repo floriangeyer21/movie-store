@@ -4,6 +4,7 @@ import com.movie.store.model.User;
 import com.movie.store.service.interfaces.RoleService;
 import com.movie.store.service.interfaces.ShoppingCartService;
 import com.movie.store.service.interfaces.UserService;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +24,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public User register(String email, String password) {
         User user = new User(email, password);
+        user.setRoles(Set.of(roleService.getRoleByName("USER")));
         user = userService.add(user);
         shoppingCartService.registerNewShoppingCart(user);
         return user;
