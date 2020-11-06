@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AddAdminService {
-    private static final String USER = "USER";
-    private static final String ADMIN = "ADMIN";
+    private static final String USER_ROLE_NAME = "USER";
+    private static final String ADMIN_ROLE_NAME = "ADMIN";
     private final UserService userService;
     private final RoleService roleService;
 
@@ -24,12 +24,12 @@ public class AddAdminService {
 
     @PostConstruct
     public void initData() {
-        roleService.add(Role.of(USER));
-        roleService.add(Role.of(ADMIN));
+        roleService.add(Role.of(USER_ROLE_NAME));
+        roleService.add(Role.of(ADMIN_ROLE_NAME));
         User admin = User.builder()
                 .email("admin@gmail.com")
                 .password("12345")
-                .roles(Set.of(roleService.getRoleByName(ADMIN)))
+                .roles(Set.of(roleService.getRoleByName(ADMIN_ROLE_NAME)))
                 .build();
         userService.add(admin);
     }
