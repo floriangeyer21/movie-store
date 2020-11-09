@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PasswordConstraint {
-    String message() default "Password has wrong format or dose not match to repeat password";
+    String message() default "Password has wrong format or does not match to repeat password";
 
     Class<?>[] groups() default {};
 

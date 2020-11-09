@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.persist(user);
+            session.save(user);
             transaction.commit();
             log.info("Successfully insert user entity. " + user);
             return user;
@@ -47,7 +47,9 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> findByEmail(String email) {
         try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery(
-                    "from User where email = :email ", User.class);
+                    "from User u "
+                            + "join fetch u.roles " 
+                            + "where u.email = :email ", User.class);
             query.setParameter("email", email);
             User user = query.uniqueResult();
             return Optional.of(user);

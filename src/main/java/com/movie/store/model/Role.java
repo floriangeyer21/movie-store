@@ -1,41 +1,39 @@
 package com.movie.store.model;
 
-import java.util.Set;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@Entity
 @Data
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"id", "email"})
-@Table(name = "users")
-public class User {
+@Table(name = "roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Enumerated(EnumType.STRING)
+    private RoleName roleName;
 
-    @Column(unique = true)
-    private String email;
+    public Role(RoleName roleName) {
+        this.roleName = roleName;
+    }
 
-    private String password;
+    public static Role of(String roleName) {
+        return new Role(RoleName.valueOf(roleName));
+    }
 
-    @ManyToMany
-    private Set<Role> roles;
-
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
+    public enum RoleName {
+        USER,ADMIN
     }
 }
